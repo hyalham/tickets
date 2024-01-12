@@ -6,12 +6,21 @@ const prisma = new PrismaClient()
 
 app.use(express.json())
 
+app.get('/api/ticket/:id', async (req, res) => {
+   const ticket = await prisma.Ticket.findUnique({
+      where: { id: parseInt(req.params.id) }
+   })
+   console.log(`GET /api/ticket ${ticket.id}`, ticket)
+   res.send(ticket)
+})
+
 // Reçoit les données de la fonction submitForm de App.vue
 app.get('/api/ticket', async (req, res) => {
    const ticketList = await prisma.Ticket.findMany({})
    console.log('ticketList', ticketList)
    res.send(ticketList)
 })
+
 
 // Envoi les données vers
 app.post('/api/ticket', async (req, res) => {

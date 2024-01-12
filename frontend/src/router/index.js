@@ -1,17 +1,25 @@
 import { createRouter, createWebHistory } from 'vue-router'
 
-import HelloWorld from '/src/components/HelloWorld.vue'
+import TicketForm from '/src/views/TicketForm.vue'
 
 const routes = [
    {
-      path: '/helloworld',
-      component: HelloWorld,
+      path: '/',
+      component: TicketForm,
    },
-   // {
-   //    path: '/componentb',
-   //    component: ComponentB,
-   //    // component: () => import('/src/components/ComponentB.vue'),
-   // },
+   {
+      path: '/tickets',
+      component: () => import('/src/views/TicketList.vue'),
+   },
+   {
+      path: '/recap/:ticketId',
+      component: () => import('/src/components/TicketRecap.vue'),
+      props: true,
+   },
+   {
+      path: "/:catchAll(.*)",
+      redirect: '/',
+   },
 ]
 
 const router = createRouter({
